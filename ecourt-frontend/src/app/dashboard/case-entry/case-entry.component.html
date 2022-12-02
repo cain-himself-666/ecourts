@@ -1,0 +1,7 @@
+<div class="title text-center mt-4">
+    <h1>{{title}}</h1>
+</div>
+<section>
+    <app-add-details *ngIf="showAddDetails" (displayUploadDocs)="onShowUploadDocs($event)"></app-add-details>
+    <app-upload-docs *ngIf="showUploadDocs" ></app-upload-docs>
+</section>

@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'lora';
+    src: url('../assets/fonts/lora.ttf');
+}
+.btn{
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+.btn:hover{
+    background-color: #6EABDF;
+    border-color: #6EABDF;
+}
