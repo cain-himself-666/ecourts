@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
+  { path: 'cases', loadChildren: () => import('./cases/cases.module').then(m => m.CasesModule) },
 ];
 
 @NgModule({

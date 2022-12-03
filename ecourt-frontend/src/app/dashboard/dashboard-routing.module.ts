@@ -12,6 +12,7 @@ const routes: Routes = [
     path: '', component: DashboardComponent , children: [
       { path: 'home', loadComponent: () => import('./home/home.component').then(c => c.HomeComponent)},
       { path: 'case-entry', loadChildren: () => import('./case-entry/case-entry.module').then(m => m.CaseEntryModule)},
+      { path: 'cause-list', loadChildren: () => import('./cause-list/cause-list.module').then(m => m.CauseListModule) },
     ]
   }
 ];

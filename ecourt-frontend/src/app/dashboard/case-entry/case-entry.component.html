@@ -3,5 +3,5 @@
 </div>
 <section>
     <app-add-details *ngIf="showAddDetails" (displayUploadDocs)="onShowUploadDocs($event)"></app-add-details>
-    <app-upload-docs *ngIf="showUploadDocs" ></app-upload-docs>
+    <app-upload-docs *ngIf="showUploadDocs" [case_id]="id"></app-upload-docs>
 </section>

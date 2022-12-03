@@ -4,6 +4,7 @@ import { CaseEntryRoutingModule } from './case-entry-routing.module';
 import { CaseEntryComponent } from './case-entry.component';
 import { AddDetailsComponent } from './add-details/add-details.component';
 import { UploadDocsComponent } from './upload-docs/upload-docs.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { UploadDocsComponent } from './upload-docs/upload-docs.component';
   imports: [
     CommonModule,
     CaseEntryRoutingModule,
+    FormsModule,
   ]
 })
 export class CaseEntryModule { }

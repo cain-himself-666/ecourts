@@ -13,7 +13,7 @@ import { UtilitiesModule } from '../utilities/utilities.module';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    UtilitiesModule
+    UtilitiesModule,
   ]
 })
 export class DashboardModule { }

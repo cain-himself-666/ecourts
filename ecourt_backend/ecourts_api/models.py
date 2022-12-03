@@ -16,3 +16,15 @@ class Additional(models.Model):
     case_id = models.ForeignKey(CaseDetails, on_delete=models.CASCADE)
     name = models.CharField(max_length=128, null=True)
     type = models.CharField(max_length=2, null=True)
+
+class Documents(models.Model):
+    case_id = models.ForeignKey(CaseDetails, on_delete=models.CASCADE)
+    document_type = models.CharField(max_length=50, null=False)
+    display_name = models.CharField(max_length=512, null=True)
+    document = models.CharField(max_length=256, null=True)
+
+class CauseList(models.Model):
+    display_s_no = models.CharField(max_length=5, null=False)
+    case_id = models.ForeignKey(CaseDetails, on_delete=models.CASCADE)
+    display_name = models.CharField(max_length=2048, null=True)
+    date = models.DateField(default=None)

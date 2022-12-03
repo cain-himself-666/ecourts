@@ -12,7 +12,7 @@ import { ServicesModule } from './services/services.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ServicesModule
+    ServicesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
