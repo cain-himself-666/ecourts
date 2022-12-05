@@ -36,7 +36,6 @@ def cause_list(request):
         pet_counsel = []
         res_counsel = []
         cases = models.CauseList.objects.filter(date = request.GET['date']).select_related('case_id').order_by('id')
-        print(len(cases))
         for c in cases:
             case_id = c.case_id.id
             counsels = models.Advocates.objects.filter(case_id_id = case_id)
@@ -61,12 +60,3 @@ def cause_list(request):
             pet_counsel = []
             res_counsel = []
         return JsonResponse(cause_list, status=status.HTTP_200_OK, safe=False)
-        
-
-        # for c in cases:
-        #     data = {
-        #         'id': c.id,
-        #         'case_no': c.case_no
-        #     }
-        #     response.append(data)
-        # return JsonResponse(response, status=status.HTTP_200_OK, safe=False)

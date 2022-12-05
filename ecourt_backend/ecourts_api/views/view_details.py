@@ -20,6 +20,7 @@ def getCaseDetails(request):
         documents = models.Documents.objects.filter(case_id_id = details.id)
         for d in documents:
             data = {
+                "case_id": details.id,
                 "doc_name": d.document,
                 "display_name": d.display_name,
                 "document_type": d.document_type,
