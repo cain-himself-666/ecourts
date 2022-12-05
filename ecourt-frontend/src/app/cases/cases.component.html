@@ -21,3 +21,21 @@
         <h5>COURT NO - 3</h5>
     </div>
 </section>
+<div class="px-5 mt-4">
+    <table class="table table-responsive">
+        <thead>
+            <th col="span">S.No.</th>
+            <th col="span">Case No</th>
+            <th col="span">Main Parties</th>
+            <th col="span">Petitioner Advocate(s)</th>
+            <th col="span">Respondent Advocate(s)</th>
+        </thead>
+        <tbody *ngFor="let c of cases">
+            <td col="span">{{c.s_no}}</td>
+            <td col="span"><a [routerLink]="['/case-details', c.cnr]" target="_blank">{{c.case_no}}</a><br><span *ngIf="c.display" class="ms-2"><p>With</p><p>{{c.display}}</p></span></td>
+            <td col="span">{{c.first_petitioner}}<br>vs<br>{{c.first_respondent}}</td>
+            <td col="span">{{c.petitioner_counsels}}<br></td>
+            <td col="span">{{c.respondent_counsels}}<br></td>
+        </tbody><br>
+    </table>
+</div>

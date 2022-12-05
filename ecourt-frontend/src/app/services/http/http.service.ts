@@ -23,4 +23,7 @@ export class HttpService {
   get_cause_list(date: any){
     return this.http.get<any>(`${URL}/api/get-causelist`, { params: { date: date } } );
   }
+  view_docs(cnr:string){
+    return this.http.get<any>(`${URL}/api/view-details`, { params: { cnr: cnr } } );
+  }
 }

@@ -1,0 +1,11 @@
+.sidebar{
+    position:sticky;
+    background: white;
+    min-height: 906px;
+    height:100%;
+    width: 280px;
+    border: 2px solid black;
+}
+.sidebar ul{
+    list-style: none;
+}

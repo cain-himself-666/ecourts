@@ -35,30 +35,32 @@ def cause_list(request):
         cause_list = []
         pet_counsel = []
         res_counsel = []
-        cases = models.CauseList.objects.filter(date = request.GET['date']).select_related('case_id').order_by('date')
+        cases = models.CauseList.objects.filter(date = request.GET['date']).select_related('case_id').order_by('id')
+        print(len(cases))
         for c in cases:
             case_id = c.case_id.id
             counsels = models.Advocates.objects.filter(case_id_id = case_id)
             for co in counsels:
                 if co.counsel_for == 'p':
-                    p_data = {
-                        "name": co.counsel_name
-                    }
-                    pet_counsel.append(p_data)
+                    pet_counsel.append(co.counsel_name)
                 else:
-                    r_data = {
-                        "name": co.counsel_name
-                    }
-                    res_counsel.append(r_data)
+                    res_counsel.append(co.counsel_name)
+                p = ', '.join(str(name) for name in pet_counsel)
+                r = ', '.join(str(name) for name in res_counsel)
             data = {
+                "display": c.display_name,
+                "s_no": c.display_s_no,
                 "case_no": c.case_id.case_no,
                 "first_petitioner": c.case_id.first_petitioner,
                 "first_respondent": c.case_id.first_respondent,
-                "petitioner_counsels": pet_counsel,
-                "respondent_counsels": res_counsel,
+                "petitioner_counsels": p,
+                "respondent_counsels": r,
+                "cnr": c.case_id.cnr
             }
             cause_list.append(data)
-        print(cause_list)
+            pet_counsel = []
+            res_counsel = []
+        return JsonResponse(cause_list, status=status.HTTP_200_OK, safe=False)
         
 
         # for c in cases:

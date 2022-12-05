@@ -7,6 +7,7 @@ import { HttpService } from '../services/http/http.service';
 })
 export class CasesComponent {
   today: string = '';
+  cases: any = [];
   constructor(private http: HttpService){}
   ngOnInit():void{
     let days = ['Sunday','Monday','Tuesday', 'Wednesday','Thursday','Friday','Saturday'];
@@ -17,10 +18,10 @@ export class CasesComponent {
     let year = date.getFullYear();
     let today_date = date.getDate();
     this.today = `FOR ${day}, THE ${today_date} DAY OF ${month}, ${year}`;
-    let current_date = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    let current_date = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate().toString().padStart(2, "0")}`;
     this.http.get_cause_list(current_date).subscribe({
       next: data => {
-        console.log(data);
+        this.cases = data;
       }
     })
   }

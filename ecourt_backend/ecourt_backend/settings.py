@@ -36,7 +36,6 @@ CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1:4200'
 )
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -63,6 +62,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+X_FRAME_OPTIONS = 'ALLOW FROM ALL'
+
 ROOT_URLCONF = 'ecourt_backend.urls'
 
 TEMPLATES = [
@@ -82,7 +83,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ecourt_backend.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
