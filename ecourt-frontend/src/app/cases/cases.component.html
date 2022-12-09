@@ -32,7 +32,7 @@
         </thead>
         <tbody *ngFor="let c of cases">
             <td col="span">{{c.s_no}}</td>
-            <td col="span"><a [routerLink]="['/case-details', c.cnr]" target="_blank">{{c.case_no}}</a><br><span *ngIf="c.display" class="ms-2"><p>With</p><p>{{c.display}}</p></span></td>
+            <td col="span"><a [routerLink]="['/case-details', c.cnr]" target="_blank">{{c.case_no}}</a><br><span *ngIf="c.display" class=" text-start">With<br>{{c.display}}</span></td>
             <td col="span">{{c.first_petitioner}}<br>vs<br>{{c.first_respondent}}</td>
             <td col="span">{{c.petitioner_counsels}}<br></td>
             <td col="span">{{c.respondent_counsels}}<br></td>
