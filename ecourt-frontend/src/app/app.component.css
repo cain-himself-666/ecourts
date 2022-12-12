@@ -2,11 +2,11 @@
     font-family: 'lora';
     src: url('../assets/fonts/lora.ttf');
 }
-.btn{
+.btn-primary{
     background-color: #337ab7;
     border-color: #337ab7;
 }
-.btn:hover{
+.btn-primary:hover{
     background-color: #6EABDF;
     border-color: #6EABDF;
 }

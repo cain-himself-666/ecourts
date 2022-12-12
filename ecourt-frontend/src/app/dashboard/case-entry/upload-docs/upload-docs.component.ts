@@ -11,8 +11,18 @@ export class UploadDocsComponent {
   heading = 'Upload Documents';
   file:any;
   progressValue: number = 0;
+  showDocs: boolean = false;
+  showSuccess: boolean = false;
+  docs: any = [];
   @Input('case_id') case_id: string = '';
   constructor(private http: HttpService){}
+  ngOnInit():void{
+    this.onGetDocs();
+    this.showSuccess = true;
+    setTimeout(() => {
+      this.showSuccess = false;
+    },1500);
+  }
   onUploadDoc(data: any){
     let fd = new FormData();
     fd.append('case_id', this.case_id);
@@ -31,7 +41,7 @@ export class UploadDocsComponent {
       }
     })).subscribe({
       next: data => {
-        console.log(data);
+        this.onGetDocs();
       },
       error: err => {
         console.log(err);
@@ -42,6 +52,15 @@ export class UploadDocsComponent {
     if(event.target.files && event.target.files[0]){
       this.file = event.target.files[0];
     }
-    console.log(this.file);
+  }
+  onGetDocs(){
+    this.http.get_docs(this.case_id).subscribe({
+      next: data => {
+        this.showDocs = data.docs[0] ? (this.showDocs = true, this.docs = data.docs) : false;
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
   }
 }

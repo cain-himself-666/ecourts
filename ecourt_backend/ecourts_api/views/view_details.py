@@ -10,6 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 def getCaseDetails(request):
     if request.method == 'GET':
         docs = []
+        bookMarks = []
+        data_notes = []
         details = models.CaseDetails.objects.get(cnr = request.GET['cnr'])
         fetch_det = {
             "case_id": details.id,
@@ -21,9 +23,28 @@ def getCaseDetails(request):
         for d in documents:
             data = {
                 "case_id": details.id,
+                "doc_id": d.id,
                 "doc_name": d.document,
                 "display_name": d.display_name,
                 "document_type": d.document_type,
             }
             docs.append(data)
-        return JsonResponse({"details": fetch_det, "docs": docs}, status=status.HTTP_200_OK, safe=False)
+        bookmarks = models.Bookmarks.objects.filter(case_id_id = details.id).select_related('case_id').select_related('document_id')
+        for b in bookmarks:
+            data = {
+                'id': b.id,
+                'page_no':b.page_no,
+                'case_id': b.case_id.id,
+                'document_type': b.document_id.document_type,
+                'document_name': b.document_id.document,
+            }
+            bookMarks.append(data)
+        notes = models.Notes.objects.filter(case_id_id = details.id)
+        for n in notes:
+            data = {
+                "id": n.id,
+                "note": n.note,
+                "date": n.date,
+            }
+            data_notes.append(data)
+        return JsonResponse({"details": fetch_det, "docs": docs, "bookmarks": bookMarks, "notes": data_notes}, status=status.HTTP_200_OK, safe=False)

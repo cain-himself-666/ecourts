@@ -18,18 +18,24 @@
                 <div class="col-md-2">
                     <label class="form-label">Select Case No</label>
                     <select class="form-select" name="cno" ngModel #cno="ngModel" required>
-                        <option value="n">---Select Case No---</option>
+                        <option value="n" selected>---Select Case No---</option>
                         <option *ngFor="let c of cases" value="{{c.id}}">{{c.case_no}}</option>
                     </select>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <label class="form-label">Display Name</label>
                     <input class="form-control" type="text" name="name" ngModel #name="ngModel">
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <button class="btn btn-primary w-100" style="margin-top: 31px;">+ Add</button>
                 </div>
             </div>
         </div>
+        <div class="px-5 mt-4" *ngIf="showSuccess">
+            <div class="alert alert-success">
+                Case Added Successfully !!
+            </div>
+        </div>
     </form>
+    
 </div>

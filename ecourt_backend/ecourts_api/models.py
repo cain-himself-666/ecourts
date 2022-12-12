@@ -28,3 +28,15 @@ class CauseList(models.Model):
     case_id = models.ForeignKey(CaseDetails, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=2048, null=True)
     date = models.DateField(default=None)
+
+class Notes(models.Model):
+    case_id = models.ForeignKey(CaseDetails, on_delete=models.CASCADE)
+    note = models.CharField(max_length=255, default=None, null=True)
+    date = models.DateTimeField(auto_now=True)
+    document_id = models.ForeignKey(Documents, on_delete=models.CASCADE)
+
+class Bookmarks(models.Model):
+    case_id = models.ForeignKey(CaseDetails, on_delete=models.CASCADE)
+    document_id = models.ForeignKey(Documents, on_delete=models.CASCADE)
+    page_no = models.CharField(max_length=3, default=None, null=False)
+    bookmark_label = models.CharField(max_length=255, default=None, null=True)

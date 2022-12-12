@@ -9,6 +9,9 @@ urlpatterns = [
     path(r'get-cases', views.cases),
     path(r'get-causelist', views.cause_list),
     path(r'view-details', views.getCaseDetails),
+    path(r'get-docs', views.getDocuments),
+    path(r'note', views.addNotes),
+    path(r'bookmark', views.addBookmark),
 ]
 
 if settings.DEBUG:

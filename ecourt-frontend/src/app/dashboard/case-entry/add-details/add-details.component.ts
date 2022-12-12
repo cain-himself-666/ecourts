@@ -48,6 +48,7 @@ export class AddDetailsComponent {
     }
     else{
       let petitioner_counsels = this.petitioner_counsels.toString();
+      console.log(petitioner_counsels);
       let respondent_counsels = this.respondent_counsels.toString();
       let additional_petitioners = this.additional_petitioner.toString();
       let additional_respondent = this.additional_respondent.toString();

@@ -5,7 +5,7 @@ import { URL } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class HttpService {
-
+  case_url = 'http://hcs.gov.in/HighCourtWebService/hgqueryhh.php?';
   constructor(private http: HttpClient) { }
 
   case_entry(fd:any){
@@ -25,5 +25,17 @@ export class HttpService {
   }
   view_docs(cnr:string){
     return this.http.get<any>(`${URL}/api/view-details`, { params: { cnr: cnr } } );
+  }
+  get_docs(case_id:string){
+    return this.http.get<any>(`${URL}/api/get-docs`, { params: { case_id: case_id } } );
+  }
+  add_bookmark(fd:any){
+    return this.http.post(`${URL}/api/bookmark`, fd);
+  }
+  add_note(fd:any){
+    return this.http.post(`${URL}/api/note`, fd)
+  }
+  get_orders(cnr: string){
+    return this.http.get<any>(`${this.case_url}hgordertoken=${cnr}`)
   }
 }

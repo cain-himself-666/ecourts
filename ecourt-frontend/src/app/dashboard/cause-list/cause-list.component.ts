@@ -11,6 +11,7 @@ export class CauseListComponent {
   cno: string = '';
   name: string = '';
   date: string = '';
+  showSuccess: boolean = false;
   constructor(private http: HttpService){}
   ngOnInit(){
     this.http.get_cases().subscribe({
@@ -30,10 +31,14 @@ export class CauseListComponent {
     fd.append('date', data.value.date);
     this.http.create_cause_list(fd).subscribe({
       next: data => {
-        console.log(data);
+        this.showSuccess = true;
+        setTimeout(() => {
+          this.showSuccess = false
+        },1500);
       },
       error: err => {
         console.log(err);
+        this.showSuccess = false;
       }
     })
   }

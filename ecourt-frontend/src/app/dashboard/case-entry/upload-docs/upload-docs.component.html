@@ -1,3 +1,6 @@
+<div class="alert alert-success" *ngIf="showSuccess">
+    Case has been successfully added
+</div>
 <div class="px-5 mt-4">
     <div class="title">
         <h3>{{ heading }}</h3>
@@ -34,6 +37,22 @@
                 <span *ngIf="progressValue !== 100">Please wait while the file is being uploaded</span>
                 <span *ngIf="progressValue === 100">File Uploaded</span>
             </div>
+        </div>
+        <div class="table-responsive mt-5" *ngIf="showDocs">
+            <table class="table table-bordered">
+                <thead>
+                    <th col="span">S.No.</th>
+                    <th col="span">Document Type</th>
+                    <th col="span">Document Name</th>
+                    <th col="span">Operations</th>
+                </thead>
+                <tbody *ngFor="let d of docs;let i=index;">
+                    <td>{{i+1}}</td>
+                    <td>{{d.document_type}}</td>
+                    <td>{{d.display_name}}</td>
+                    <td><a href="http://localhost:8000/api/media/{{d.case_id}}/{{d.document_type}}/{{d.doc_name}}" target="_blank"><i class="bi bi-eye-fill"></i></a></td>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
