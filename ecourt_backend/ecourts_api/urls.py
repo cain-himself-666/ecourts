@@ -12,6 +12,7 @@ urlpatterns = [
     path(r'get-docs', views.getDocuments),
     path(r'note', views.addNotes),
     path(r'bookmark', views.addBookmark),
+    path(r'doc-types', views.getDocTypes)
 ]
 
 if settings.DEBUG:

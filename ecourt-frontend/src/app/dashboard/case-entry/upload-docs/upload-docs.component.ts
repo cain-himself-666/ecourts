@@ -2,6 +2,7 @@ import { HttpEventType } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { map } from 'rxjs';
 import { HttpService } from 'src/app/services/http/http.service';
+import { URL } from 'src/environments/environment.prod';
 @Component({
   selector: 'app-upload-docs',
   templateUrl: './upload-docs.component.html',
@@ -14,6 +15,7 @@ export class UploadDocsComponent {
   showDocs: boolean = false;
   showSuccess: boolean = false;
   docs: any = [];
+  url: string = `${URL}`;
   doc_types: any = ['Counter Affidavit', 'Annexture', 'Petition File', 'Vakalatnama'];
   @Input('case_id') case_id: string = '';
   constructor(private http: HttpService){}

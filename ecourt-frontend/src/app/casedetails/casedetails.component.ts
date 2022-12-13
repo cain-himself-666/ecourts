@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../services/http/http.service';
 import * as PDFJS from "pdfjs-dist";
-import { media_url } from 'src/environments/environment.prod';
+import { URL } from 'src/environments/environment.prod';
 var pdfDoc:any = null,
     pageRendering = false,
     pageNumPending:any = null;
@@ -37,7 +37,7 @@ export class CasedetailsComponent {
   }
   onUpdateUrl(doc_id: string,document_type:string, document_name: string){
     this.pageNum = 1;
-    this.url = `http://${media_url}/api/media/${this.case_id}/${document_type}/${document_name}`;
+    this.url = `${URL}/api/media/${this.case_id}/${document_type}/${document_name}`;
     this.displayDoc(this.pageNum);
     this.doc_id = doc_id;
   }
@@ -47,13 +47,13 @@ export class CasedetailsComponent {
     this.displayDoc(this.pageNum);
   }
   onGetBookmark(case_id:string, document_name:string, document_type:string, page_no: string){
-    this.url = `http://${media_url}/api/media/${case_id}/${document_type}/${document_name}`;
+    this.url = `${URL}/api/media/${case_id}/${document_type}/${document_name}`;
     this.pageNum = parseInt(page_no);
     this.displayDoc(this.pageNum);
   }
   renderPage(num:any) {
     this.showPanel = true;
-    let scale = 2,
+    let scale = 1.9,
     canvas:any = document.getElementById('the-canvas'),
     ctx = canvas.getContext('2d');
     pageRendering = true;
