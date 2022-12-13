@@ -4,8 +4,8 @@ from django.db import models
 class CaseDetails(models.Model):
     case_no = models.CharField(unique=True, max_length=20, null=False)
     cnr = models.CharField(max_length=30, null=False)
-    first_petitioner = models.CharField(max_length=50, null=False)
-    first_respondent = models.CharField(max_length=50, null=False)
+    first_petitioner = models.CharField(max_length=128, null=False)
+    first_respondent = models.CharField(max_length=128, null=False)
 
 class Advocates(models.Model):
     case_id = models.ForeignKey(CaseDetails, on_delete=models.CASCADE)
@@ -33,7 +33,6 @@ class Notes(models.Model):
     case_id = models.ForeignKey(CaseDetails, on_delete=models.CASCADE)
     note = models.CharField(max_length=255, default=None, null=True)
     date = models.DateTimeField(auto_now=True)
-    document_id = models.ForeignKey(Documents, on_delete=models.CASCADE)
 
 class Bookmarks(models.Model):
     case_id = models.ForeignKey(CaseDetails, on_delete=models.CASCADE)

@@ -12,7 +12,6 @@ def addNotes(request):
         models.Notes.objects.create(
             note = request.POST['note'],
             case_id_id = request.POST['case_id'],
-            document_id_id = request.POST['document_id']
         )
         return JsonResponse({'response': 'Note Added Successfully'}, status=status.HTTP_201_CREATED)
     return JsonResponse({'response': 'Error'}, status=status.HTTP_400_BAD_REQUEST)

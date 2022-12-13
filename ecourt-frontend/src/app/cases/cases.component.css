@@ -1,5 +1,8 @@
-thead{
-    border: 1px solid black;
-    border-left: 0;
-    border-right: 0;
+.table thead th{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
+/* .table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+} */

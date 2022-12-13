@@ -44,8 +44,8 @@ def cause_list(request):
                     pet_counsel.append(co.counsel_name)
                 else:
                     res_counsel.append(co.counsel_name)
-                p = ', '.join(str(name) for name in pet_counsel)
-                r = ', '.join(str(name) for name in res_counsel)
+                p = '|'.join(str(name) for name in pet_counsel)
+                r = '|'.join(str(name) for name in res_counsel)
             data = {
                 "display": c.display_name,
                 "s_no": c.display_s_no,

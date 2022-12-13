@@ -14,6 +14,7 @@ export class UploadDocsComponent {
   showDocs: boolean = false;
   showSuccess: boolean = false;
   docs: any = [];
+  doc_types: any = ['Counter Affidavit', 'Annexture', 'Petition File', 'Vakalatnama'];
   @Input('case_id') case_id: string = '';
   constructor(private http: HttpService){}
   ngOnInit():void{

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../services/http/http.service';
 import * as PDFJS from "pdfjs-dist";
+import { media_url } from 'src/environments/environment.prod';
 var pdfDoc:any = null,
     pageRendering = false,
     pageNumPending:any = null;
@@ -34,12 +35,11 @@ export class CasedetailsComponent {
     this.onGetDetails();
     PDFJS.GlobalWorkerOptions.workerSrc = '../../assets/scripts/script.js';
   }
-  onUpdateUrl(doc_id: string,document_type:string, document_name: string, case_id:string){
+  onUpdateUrl(doc_id: string,document_type:string, document_name: string){
     this.pageNum = 1;
-    this.url = `http://localhost:8000/api/media/${case_id}/${document_type}/${document_name}`;
+    this.url = `http://${media_url}/api/media/${this.case_id}/${document_type}/${document_name}`;
     this.displayDoc(this.pageNum);
     this.doc_id = doc_id;
-    this.case_id = case_id;
   }
   onUpdateOrderUrl(pdf: string){
     this.pageNum = 1;
@@ -47,13 +47,13 @@ export class CasedetailsComponent {
     this.displayDoc(this.pageNum);
   }
   onGetBookmark(case_id:string, document_name:string, document_type:string, page_no: string){
-    this.url = `http://localhost:8000/api/media/${case_id}/${document_type}/${document_name}`;
+    this.url = `http://${media_url}/api/media/${case_id}/${document_type}/${document_name}`;
     this.pageNum = parseInt(page_no);
     this.displayDoc(this.pageNum);
   }
   renderPage(num:any) {
     this.showPanel = true;
-    let scale = 1.5,
+    let scale = 2,
     canvas:any = document.getElementById('the-canvas'),
     ctx = canvas.getContext('2d');
     pageRendering = true;
@@ -137,7 +137,6 @@ export class CasedetailsComponent {
     let fd = new FormData();
     fd.append('note', data.value.note);
     fd.append('case_id', this.case_id);
-    fd.append('document_id', this.doc_id);
     this.http.add_note(fd).subscribe({
       next: data => {
         this.onGetDetails();
@@ -149,18 +148,19 @@ export class CasedetailsComponent {
   }
   onShowNote(note:any, date:any){
     this.note_data = note;
-    this.note_date = date
+    this.note_date = date;
   }
   onGetDetails(){
     this.http.view_docs(this.cnr).subscribe({
       next: data => {
         this.details = data.details;
         this.docs = data.docs;
-        this.bookmarks = data.bookmarks
-        this.notes = data.notes
+        this.bookmarks = data.bookmarks;
+        this.notes = data.notes;
+        this.case_id = data.details.case_id;
       }
     })
-    this.http.get_orders('SKHC010001632021').subscribe({
+    this.http.get_orders(this.cnr).subscribe({
       next: data => {
         this.orders = data;
       },

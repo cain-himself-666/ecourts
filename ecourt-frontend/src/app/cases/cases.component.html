@@ -31,11 +31,11 @@
             <th col="span">Respondent Advocate(s)</th>
         </thead>
         <tbody *ngFor="let c of cases">
-            <td col="span"><b>{{c.s_no}}</b></td>
-            <td col="span"><a [routerLink]="['/case-details', c.cnr]" target="_blank">{{c.case_no}}</a><br><span *ngIf="c.display" class="text-start">With<br><span class="ms-2">{{c.display}}</span></span></td>
-            <td col="span">{{c.first_petitioner}}<br>vs<br>{{c.first_respondent}}</td>
-            <td col="span">{{c.petitioner_counsels}}<br></td>
-            <td col="span">{{c.respondent_counsels}}<br></td>
+            <td col="span"><label>{{c.s_no}}</label></td>
+            <td col="span"><label><a [routerLink]="['/case-details', c.cnr]" target="_blank">{{c.case_no}}</a><br><span *ngIf="c.display" class="text-start"><b>With</b><br><span [innerHTML]="convertLine(c.display)"></span></span></label></td>
+            <td col="span"><label>{{c.first_petitioner}}<br>vs<br>{{c.first_respondent}}</label></td>
+            <td col="span"><label [innerHTML]="convertLine(c.petitioner_counsels)"></label></td>
+            <td col="span"><label [innerHTML]="convertLine(c.respondent_counsels)"></label></td>
         </tbody><br>
     </table>
 </div>

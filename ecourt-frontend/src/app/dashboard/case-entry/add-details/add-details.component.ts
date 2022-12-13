@@ -47,11 +47,10 @@ export class AddDetailsComponent {
       data.control.markAllAsTouched();
     }
     else{
-      let petitioner_counsels = this.petitioner_counsels.toString();
-      console.log(petitioner_counsels);
-      let respondent_counsels = this.respondent_counsels.toString();
-      let additional_petitioners = this.additional_petitioner.toString();
-      let additional_respondent = this.additional_respondent.toString();
+      let petitioner_counsels:string = this.delimitedString(this.petitioner_counsels, '|'),
+          respondent_counsels:string = this.delimitedString(this.respondent_counsels, '|'),
+          additional_petitioners: string = this.delimitedString(this.additional_petitioner, '|'),
+          additional_respondents: string = this.delimitedString(this.additional_respondent, '|');
       let fd = new FormData();
       fd.append('case_no', data.value.case_no);
       fd.append('cnr', data.value.cnr);
@@ -60,7 +59,7 @@ export class AddDetailsComponent {
       fd.append('petitioner_counsels', petitioner_counsels);
       fd.append('respondent_counsels', respondent_counsels);
       fd.append('additional_petitioners', additional_petitioners || '');
-      fd.append('additional_respondents', additional_respondent || '');
+      fd.append('additional_respondents', additional_respondents || '');
       this.http.case_entry(fd).subscribe({
         next: data => {
           this.uploadDocs.emit({
@@ -74,5 +73,13 @@ export class AddDetailsComponent {
         }
       })
     }
+  }
+  delimitedString(array: any, delimiter:string){
+    let a = '';
+    array.forEach((data:any) => {
+      a += data+delimiter
+    })
+    a = a.substring(0, a.length-1);
+    return a;
   }
 }

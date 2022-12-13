@@ -12,10 +12,10 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def case_details(request):
     if request.method == 'POST':
-        petitioner_counsels = request.POST['petitioner_counsels'].split(',')
-        respondent_counsels = request.POST['respondent_counsels'].split(',')
-        additional_petitioners = request.POST['additional_petitioners'].split(',')
-        additional_respondents = request.POST['additional_respondents'].split(',')
+        petitioner_counsels = request.POST['petitioner_counsels'].split('|')
+        respondent_counsels = request.POST['respondent_counsels'].split('|')
+        additional_petitioners = request.POST['additional_petitioners'].split('|')
+        additional_respondents = request.POST['additional_respondents'].split('|')
         with transaction.atomic():
             details = models.CaseDetails.objects.create(
                 case_no = request.POST['case_no'],
