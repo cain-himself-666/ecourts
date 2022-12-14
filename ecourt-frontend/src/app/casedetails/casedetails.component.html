@@ -8,7 +8,7 @@
             </ul>
             <hr>
         </div>
-        <div class="orders mt-3">
+        <div class="orders mt-3" *ngIf="orders.length > 0">
             <h5 class="text-center"><u>Daily Orders</u></h5>
             <ul>
                 <li class="mt-3" *ngFor="let o of orders">
@@ -22,7 +22,7 @@
             <ul>
                 <li class="mt-3" *ngFor="let b of bookmarks; let i = index">
                     <label *ngIf="!b.page_no">No Bookmarks</label>
-                    <label *ngIf="b.page_no" (click)="onGetBookmark(b.case_id,b.document_name,b.document_type,b.page_no)">Bookmark_{{i+1}}</label>
+                    <div class="d-flex justify-content-between"><label *ngIf="b.page_no" (click)="onGetBookmark(b.case_id,b.document_name,b.document_type,b.page_no)">Bookmark_{{i+1}}</label><span class="text-danger mx-3" (click)="deleteBookmark(b.id)">x</span></div>
                 </li>
             </ul>
             <hr>
@@ -31,7 +31,7 @@
             <h5 class="text-center"><u>Notes</u></h5>
             <ul>
                 <li class="mt-3" *ngFor="let n of notes; let i = index">
-                    <label (click)="onShowNote(n.note, n.date)" data-bs-toggle="modal" data-bs-target="#viewModal">Note_{{i+1}}</label>
+                    <div class="d-flex justify-content-between"><label (click)="onShowNote(n.note, n.date)" data-bs-toggle="modal" data-bs-target="#viewModal">Note_{{i+1}}</label><span class="text-danger mx-3" (click)="deleteNote(n.id)">x</span></div>
                 </li>
             </ul>
             <hr>
@@ -46,8 +46,11 @@
                 <div class="col-md-3">
                     <label class="form-label"><b>CNR:</b> {{cnr}}</label>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label class="form-label" *ngIf="details"><b>Main Parties:</b> {{details.first_petitioner}} v/s {{details.first_respondent}}</label>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-danger ms-3" [routerLink]="['/cases/16']">X</button>
                 </div>
             </div>
         </main>
@@ -81,11 +84,6 @@
             </nav>
             <div class="pages px-5 text-center mt-3">
                 <button class="btn page ms-2 mt-2" *ngFor="let p of pages" [ngClass]="{'active': pageNum === p,'':pageNum !== p}" (click)="selectPage(p)">{{p}}</button>
-                <div class="row d-flex">
-                    <div class="col-md-12 mt-4">
-                        
-                    </div>
-                </div>
             </div>
             <div class="text-center mt-1 mb-5">
                 <canvas id="the-canvas"></canvas>
@@ -100,7 +98,7 @@
                     </div>
                     <form #note="ngForm" (ngSubmit)="addNote(note)">
                         <div class="modal-body">
-                            <label class="form-label">Note</label>
+                            <label class="form-label"></label>
                             <textarea class="form-control" rows="5" cols="10" name="note" ngModel #note="ngModel" required></textarea>
                         </div>
                         <div class="modal-footer">

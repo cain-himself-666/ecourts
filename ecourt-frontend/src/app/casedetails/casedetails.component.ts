@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ɵisDefaultChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../services/http/http.service';
 import * as PDFJS from "pdfjs-dist";
@@ -12,6 +12,7 @@ var pdfDoc:any = null,
   styleUrls: ['./casedetails.component.css']
 })
 export class CasedetailsComponent {
+  date:any;
   orders: any = [];
   cnr: any;
   details: any;
@@ -34,6 +35,8 @@ export class CasedetailsComponent {
     this.cnr = this.route.snapshot.paramMap.get('cnr');
     this.onGetDetails();
     PDFJS.GlobalWorkerOptions.workerSrc = '../../assets/scripts/script.js';
+    let date = new Date();
+    this.date = date.getDate();
   }
   onUpdateUrl(doc_id: string,document_type:string, document_name: string){
     this.pageNum = 1;
@@ -167,6 +170,18 @@ export class CasedetailsComponent {
       error: err => {
         console.log(err);
       }
+    })
+  }
+  deleteNote(id:string){
+    this.http.delete_note(id).subscribe({
+      next: data => this.onGetDetails(),
+      error: err => console.log(err)
+    })
+  }
+  deleteBookmark(id:string){
+    this.http.delete_bookmark(id).subscribe({
+      next: data => this.onGetDetails(),
+      error: err => console.log(err)
     })
   }
 }

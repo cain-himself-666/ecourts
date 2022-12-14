@@ -5,7 +5,8 @@
     width: 300px;
     border: 2px solid black;
 }
-.sidebar ul li label{
+.sidebar ul li label,
+.sidebar ul li span{
     cursor: pointer;
 }
 .page{

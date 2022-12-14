@@ -16,5 +16,8 @@ def addBookmark(request):
             document_id_id = request.POST['document_id']
         )
         return JsonResponse({'response': 'Bookmark Added Successfully'}, status=status.HTTP_201_CREATED)
+    if request.method == 'DELETE':
+        models.Bookmarks.objects.filter(id=request.GET['id']).delete()
+        return JsonResponse({'response': 'Bookmark Deleted Successfully'}, status=status.HTTP_200_OK)
     return JsonResponse({'response': 'Error'}, status=status.HTTP_400_BAD_REQUEST)
     

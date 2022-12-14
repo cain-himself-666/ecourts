@@ -38,4 +38,13 @@ export class HttpService {
   get_orders(cnr: string){
     return this.http.get<any>(`${this.case_url}hgordertoken=${cnr}`)
   }
+  get_doc_types(){
+    return this.http.get<any>(`${URL}/api/doc-types`);
+  }
+  delete_note(id:string){
+    return this.http.delete(`${URL}/api/note?id=${id}`);
+  }
+  delete_bookmark(id:string){
+    return this.http.delete(`${URL}/api/bookmark?id=${id}`);
+  }
 }

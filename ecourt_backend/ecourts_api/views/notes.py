@@ -14,5 +14,8 @@ def addNotes(request):
             case_id_id = request.POST['case_id'],
         )
         return JsonResponse({'response': 'Note Added Successfully'}, status=status.HTTP_201_CREATED)
+    if request.method == 'DELETE':
+        models.Notes.objects.filter(id=request.GET['id']).delete()
+        return JsonResponse({'response': 'Note Deleted Successfully'}, status=status.HTTP_200_OK)
     return JsonResponse({'response': 'Error'}, status=status.HTTP_400_BAD_REQUEST)
     

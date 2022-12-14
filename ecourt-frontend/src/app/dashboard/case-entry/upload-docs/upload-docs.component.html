@@ -9,7 +9,7 @@
                 <div class="col-md-3">
                     <label class="form-label">Document Type</label>
                     <select class="form-select" name="doc_type" ngModel #doc_type="ngModel" required>
-                        <option *ngFor="let d of doc_types">{{d}}</option>
+                        <option *ngFor="let d of doc_types" value="{{d.doc_type}}">{{d.doc_type}}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
@@ -25,7 +25,7 @@
                 </div>
             </div>
         </form>
-        <div class="alert alert-success" *ngIf="showSuccess">
+        <div class="alert alert-success mt-4" *ngIf="showSuccess">
             Case has been successfully added
         </div>
         <div *ngIf="progressValue">

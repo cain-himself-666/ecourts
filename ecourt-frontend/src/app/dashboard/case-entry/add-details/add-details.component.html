@@ -40,8 +40,7 @@
                             <label class="form-label">Petitioner Counsel Name</label>
                             <div class="d-flex">
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control" name="counsel" [(ngModel)]="p_counsel" #counsel="ngModel" required>
-                                    <small class="text-danger" *ngIf="counsel.touched && counsel.invalid">Please enter counsel name</small>
+                                    <input type="text" class="form-control" name="counsel" [(ngModel)]="p_counsel" #counsel="ngModel">
                                 </div> 
                                 <button class="btn btn-primary click ms-2" type="button" (click)="addPetitionerCounsels()" style="max-height: 45px;">+ Add</button>
                             </div>
@@ -60,8 +59,7 @@
                             <label class="form-label">Respondent Counsel Name</label>
                             <div class="d-flex">
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control" name="counsel" [(ngModel)]="r_counsel" #counsel="ngModel" required>
-                                    <small class="text-danger" *ngIf="counsel.touched && counsel.invalid">Please enter counsel name</small>
+                                    <input type="text" class="form-control" name="counsel" [(ngModel)]="r_counsel" #counsel="ngModel">
                                 </div>
                                 <button class="btn btn-primary click ms-2" type="button" style="max-height: 45px;" (click)="addRespondentCounsels()">+ Add</button>
                             </div>

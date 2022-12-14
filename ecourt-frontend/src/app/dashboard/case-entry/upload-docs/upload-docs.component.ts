@@ -16,7 +16,7 @@ export class UploadDocsComponent {
   showSuccess: boolean = false;
   docs: any = [];
   url: string = `${URL}`;
-  doc_types: any = ['Counter Affidavit', 'Annexture', 'Petition File', 'Vakalatnama'];
+  doc_types: any = [];
   @Input('case_id') case_id: string = '';
   constructor(private http: HttpService){}
   ngOnInit():void{
@@ -25,6 +25,7 @@ export class UploadDocsComponent {
     setTimeout(() => {
       this.showSuccess = false;
     },1500);
+    this.onGetDocTypes();
   }
   onUploadDoc(data: any){
     let fd = new FormData();
@@ -63,6 +64,13 @@ export class UploadDocsComponent {
       },
       error: err => {
         console.log(err);
+      }
+    })
+  }
+  onGetDocTypes(){
+    this.http.get_doc_types().subscribe({
+      next: data => {
+        this.doc_types = data;
       }
     })
   }

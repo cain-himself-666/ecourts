@@ -10,5 +10,11 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def getDocTypes(request):
     if request.method == 'GET':
-        doc_types = list(models.DocumentMaster.objects.all())
-        return JsonResponse(doc_types, status=status.HTTP_200_OK, safe=False)
+        types = []
+        doc_types = models.DocumentMaster.objects.all()
+        for i in range(0,len(doc_types)):
+            data = {
+                "doc_type": doc_types[i].document_type
+            }
+            types.append(data)
+        return JsonResponse(types, status=status.HTTP_200_OK, safe=False)
