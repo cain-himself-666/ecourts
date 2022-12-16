@@ -56,13 +56,16 @@ export class CasedetailsComponent {
   }
   renderPage(num:any) {
     this.showPanel = true;
-    let scale = 1.9,
-    canvas:any = document.getElementById('the-canvas'),
+    let canvas:any = document.getElementById('the-canvas'),
+    scale = 1.9,
     ctx = canvas.getContext('2d');
     pageRendering = true;
     // Using promise to fetch the page
     pdfDoc.getPage(num).then(function(page:any) {
       var viewport = page.getViewport({scale: scale});
+      if(viewport.height > 2000){
+        var viewport = page.getViewport({scale: 1});
+      }
       canvas.height = viewport.height;
       canvas.width = viewport.width;
       // Render PDF page into canvas context
