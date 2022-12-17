@@ -50,7 +50,7 @@
                     <label class="form-label" *ngIf="details"><b>Main Parties:</b> {{details.first_petitioner}} v/s {{details.first_respondent}}</label>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-danger ms-3" [routerLink]="['/cases/16']">X</button>
+                    <button class="btn btn-danger ms-3" (click)="goBack()">X</button>
                 </div>
             </div>
         </main>

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../services/http/http.service';
 import * as PDFJS from "pdfjs-dist";
 import { URL } from 'src/environments/environment.prod';
+import {Location} from '@angular/common';
 var pdfDoc:any = null,
     pageRendering = false,
     pageNumPending:any = null;
@@ -30,13 +31,17 @@ export class CasedetailsComponent {
   pages: any = [];
   url: string = '';
   showPanel: boolean = false;
-  constructor(private http: HttpService, private route: ActivatedRoute){}
+  constructor(private http: HttpService, private route: ActivatedRoute, private _location: Location){}
   ngOnInit():void{
     this.cnr = this.route.snapshot.paramMap.get('cnr');
     this.onGetDetails();
     PDFJS.GlobalWorkerOptions.workerSrc = '../../assets/scripts/script.js';
     let date = new Date();
     this.date = date.getDate();
+    window.scrollTo(0, 0);
+  }
+  goBack(){
+    this._location.back();
   }
   onUpdateUrl(doc_id: string,document_type:string, document_name: string){
     this.pageNum = 1;
@@ -64,7 +69,7 @@ export class CasedetailsComponent {
     pdfDoc.getPage(num).then(function(page:any) {
       var viewport = page.getViewport({scale: scale});
       if(viewport.height > 2000){
-        var viewport = page.getViewport({scale: 1});
+        var viewport = page.getViewport({scale: 0.8});
       }
       canvas.height = viewport.height;
       canvas.width = viewport.width;
