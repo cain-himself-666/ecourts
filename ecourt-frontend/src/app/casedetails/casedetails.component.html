@@ -2,8 +2,57 @@
     <div class="sidebar">
         <div *ngIf="docs.length > 0">
             <ul>
-                <li class="mt-3" *ngFor="let d of docs">
-                    <label (click)="onUpdateUrl(d.doc_id,d.document_type,d.doc_name)">{{d.display_name}}</label>
+                <li class="mt-3" *ngFor="let d of docs" style="list-style: none;">
+                    <!-- <label (click)="onUpdateUrl(d.doc_id,d.document_type,d.doc_name)"> -->
+                    <label>
+                        <ng-container *ngIf="d.display_name === 'PETITION'; else others">
+                            {{d.display_name}}
+                            <ol>
+                                <li (click)="selectPage(5)">
+                                    Synopsis
+                                </li>
+                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,7)">
+                                    List of dates and events
+                                </li>
+                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,12)">
+                                    An application under Article 226
+                                </li>
+                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,43)">
+                                    P1 - Copy of Allotment Letter
+                                </li>
+                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,51)">
+                                    P2 - Copy of Contract Letter
+                                </li>
+                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,52)">
+                                    P3 - Copy of ledger of the company
+                                </li>
+                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,54)">
+                                    P4 - Copy of the Order dated 8.04.2022
+                                </li>
+                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,56)">
+                                    P5 - Copy of the Notice dated 7.11.2002
+                                </li>
+                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,58)">
+                                    P6 - Copy of the Reply mail dated 8.11.2002
+                                </li>
+                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,60)">
+                                    P7 - Copy of the legal notice sent through email and post dated to Respondent No. 2
+                                </li>
+                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,67)">
+                                    P8 - Copy of the legal notice sent through email and post dated to Respondent No. 4
+                                </li>
+                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,72)">
+                                    P9 - Copy of the letter sent to the Officer in Charge
+                                </li>
+                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,76)">
+                                    P10 - Copy of the notice sent to the Director General of Police
+                                </li>
+                            </ol>
+                        </ng-container>
+                        <ng-template  #others>
+                            <label (click)="onUpdateUrl(d.doc_id,d.document_type,d.doc_name)">{{d.display_name}}</label>
+                        </ng-template>
+                    </label>
                 </li>
             </ul>
             <hr>
@@ -39,19 +88,10 @@
     </div>
     <div class="d-block w-100">
         <main>
-            <div class="row mt-4 px-5">
-                <div class="col-md-3">
-                    <label class="form-label" *ngIf="details"><b>Case No:</b> {{details.case_no}}</label>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label"><b>CNR:</b> {{cnr}}</label>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label" *ngIf="details"><b>Main Parties:</b> {{details.first_petitioner}} v/s {{details.first_respondent}}</label>
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-danger ms-3" (click)="goBack()">X</button>
-                </div>
+            <div class="d-flex justify-content-between align-items-center mt-4 px-4">
+                <span></span>
+                <label class="form-label heading" *ngIf="details"><b>{{details.case_no}}</b> ({{details.first_petitioner}} v/s {{details.first_respondent}})</label>
+                <button class="btn btn-danger" (click)="goBack()">X</button>
             </div>
         </main>
         <section>
@@ -82,13 +122,13 @@
                     </div>
                 </div>
             </nav>
-            <div class="pages px-5 text-center mt-3">
-                <button class="btn page ms-2 mt-2" *ngFor="let p of pages" [ngClass]="{'active': pageNum === p,'':pageNum !== p}" (click)="selectPage(p)">{{p}}</button>
-            </div>
             <div class="text-center mt-1 mb-5">
                 <canvas id="the-canvas"></canvas>
             </div>
         </section>
+        <div class="pages px-5 text-center mt-3">
+            <button class="btn page ms-2 mt-2" *ngFor="let p of pages" [ngClass]="{'active': pageNum === p,'':pageNum !== p}" (click)="selectPage(p)">{{p}}</button>
+        </div>
         <div class="modal fade" tabindex="-1" id="exampleModal" #exampleModal>
             <div class="modal-dialog">
                 <div class="modal-content">

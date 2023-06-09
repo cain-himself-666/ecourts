@@ -11,6 +11,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def case_details(request):
+    if request.method == 'GET':
+        cases = models.CaseDetails.objects.all().values()
+        return JsonResponse(list(cases), status=status.HTTP_200_OK, safe=False)
     if request.method == 'POST':
         petitioner_counsels = request.POST['petitioner_counsels'].split('|')
         respondent_counsels = request.POST['respondent_counsels'].split('|')

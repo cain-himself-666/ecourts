@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http/http.service';
 @Component({
   selector: 'app-add-details',
@@ -17,7 +18,7 @@ export class AddDetailsComponent {
   addn_pet: string = '';
   addn_res: string = '';
   showError: boolean = false;
-  constructor (private http: HttpService) {} 
+  constructor (private http: HttpService, private router: Router) {} 
   addAdditionalPetitioner(){
     this.addn_pet === '' ?  alert('Please enter additional petitioner'): this.additional_petitioner.push(this.addn_pet);
   }
@@ -62,11 +63,7 @@ export class AddDetailsComponent {
       fd.append('additional_respondents', additional_respondents || '');
       this.http.case_entry(fd).subscribe({
         next: data => {
-          this.uploadDocs.emit({
-            status: true,
-            id: data.case_id
-          });
-          this.showError = false;
+          this.router.navigate(['/dashboard/case-entry/upload', data.case_id]);
         },
         error: err => {
           this.showError = true;

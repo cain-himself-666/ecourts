@@ -25,9 +25,6 @@
                 </div>
             </div>
         </form>
-        <div class="alert alert-success mt-4" *ngIf="showSuccess">
-            Case has been successfully added
-        </div>
         <div *ngIf="progressValue">
             <div class="progress mt-4">
                 <div class="progress-bar" [style.width.%]="progressValue" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{progressValue}}%</div>
@@ -40,18 +37,68 @@
         <div class="table-responsive mt-5" *ngIf="showDocs">
             <table class="table table-bordered">
                 <thead>
-                    <th col="span">S.No.</th>
-                    <th col="span">Document Type</th>
-                    <th col="span">Document Name</th>
-                    <th col="span">Operations</th>
+                    <tr>
+                        <th col="scope">S.No.</th>
+                        <th col="scope">Document Type</th>
+                        <th col="scope">Document Name</th>
+                        <th col="scope">View</th>
+                        <th col="scope">Indexing</th>
+                    </tr>
                 </thead>
                 <tbody *ngFor="let d of docs;let i=index;">
-                    <td>{{i+1}}</td>
-                    <td>{{d.document_type}}</td>
-                    <td>{{d.display_name}}</td>
-                    <td><a href="{{url}}/api/media/{{d.case_id}}/{{d.document_type}}/{{d.doc_name}}" target="_blank"><i class="bi bi-eye-fill"></i></a></td>
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>{{d.document_type}}</td>
+                        <td>{{d.display_name}}</td>
+                        <td><a href="{{url}}/api/media/{{d.case_id}}/{{d.document_type}}/{{d.doc_name}}" target="_blank"><i class="bi bi-eye-fill"></i></a></td>
+                        <td><a data-bs-target="#exampleModal" data-bs-toggle="modal" style="color: blue; cursor: pointer;text-decoration: underline;" (click)="getDocId(d.id)">Add Index</a></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Index</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="text" class="form-control" placeholder="Index Name" name="index" ngModel #index="ngModel">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" name="page" placeholder="Page" ngModel #page="ngModel">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary w-100" (click)="addIndexes(index.value, page.value)">Add</button>
+                </div>
+            </div>
+            <table class="table table-bordered mt-3" *ngIf="indexes[0]">
+                <thead>
+                    <tr>
+                        <th scope="col">S.No.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Page</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ind of indexes; let i=index">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ ind.name }}</td>
+                        <td>{{ ind.page }}</td>
+                        <td class="text-center" style="color: red">X</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
     </div>
 </div>

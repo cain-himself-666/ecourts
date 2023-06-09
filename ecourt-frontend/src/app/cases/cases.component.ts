@@ -19,7 +19,7 @@ export class CasesComponent {
     let month = months[date.getMonth()].toUpperCase();
     let year = date.getFullYear();
     this.today = `${this.date} ${month} ${year}`;
-    let current_date = `${date.getFullYear()}-${date.getMonth()+1}-${this.date}`;
+    let current_date = `2023-06-${this.date}`;
     this.http.get_cause_list(current_date).subscribe({
       next: data => {
         this.cases = data;

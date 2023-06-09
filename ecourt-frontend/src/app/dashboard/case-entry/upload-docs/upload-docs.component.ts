@@ -1,5 +1,6 @@
 import { HttpEventType } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { map } from 'rxjs';
 import { HttpService } from 'src/app/services/http/http.service';
 import { URL } from 'src/environments/environment.prod';
@@ -17,19 +18,22 @@ export class UploadDocsComponent {
   docs: any = [];
   url: string = `${URL}`;
   doc_types: any = [];
-  @Input('case_id') case_id: string = '';
-  constructor(private http: HttpService){}
+  doc_id: number = 0;
+  case_id: number = 0;
+  indexes: Array<any> = [];
+  constructor(private http: HttpService, private route: ActivatedRoute){}
   ngOnInit():void{
+    this.route.params.subscribe({
+      next: (param: Params) => {
+        this.case_id = param['id'];
+      }
+    })
     this.onGetDocs();
-    this.showSuccess = true;
-    setTimeout(() => {
-      this.showSuccess = false;
-    },1500);
     this.onGetDocTypes();
   }
   onUploadDoc(data: any){
     let fd = new FormData();
-    fd.append('case_id', this.case_id);
+    fd.append('case_id', this.case_id.toString());
     fd.append('document', this.file);
     fd.append('display_name', data.value.display_name);
     fd.append('document_type', data.value.doc_type);
@@ -58,7 +62,7 @@ export class UploadDocsComponent {
     }
   }
   onGetDocs(){
-    this.http.get_docs(this.case_id).subscribe({
+    this.http.get_docs(this.case_id.toString()).subscribe({
       next: data => {
         this.showDocs = data.docs[0] ? (this.showDocs = true, this.docs = data.docs) : false;
       },
@@ -73,5 +77,16 @@ export class UploadDocsComponent {
         this.doc_types = data;
       }
     })
+  }
+  addIndexes(index_name: string, index_page: number){
+    this.indexes.push({
+      case_id: this.case_id,
+      document_id: this.doc_id,
+      name: index_name,
+      page: index_page,
+    })
+  }
+  getDocId(id:number){
+    this.doc_id = id;
   }
 }

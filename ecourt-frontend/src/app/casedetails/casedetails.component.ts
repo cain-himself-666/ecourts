@@ -13,6 +13,7 @@ var pdfDoc:any = null,
   styleUrls: ['./casedetails.component.css']
 })
 export class CasedetailsComponent {
+  showLoading: boolean = false;
   date:any;
   orders: any = [];
   cnr: any;
@@ -39,6 +40,9 @@ export class CasedetailsComponent {
     let date = new Date();
     this.date = date.getDate();
     window.scrollTo(0, 0);
+    setTimeout(() => {
+      this.onUpdateUrl(this.docs[0].doc_id, this.docs[0].document_type, this.docs[0].doc_name);
+    }, 300);
   }
   goBack(){
     this._location.back();
@@ -191,6 +195,15 @@ export class CasedetailsComponent {
       next: data => this.onGetDetails(),
       error: err => console.log(err)
     })
+  }
+  selectPageBuffer(doc_id: string,document_type:string, document_name: string, page:any){
+    this.showLoading = true;
+    this.onUpdateUrl(doc_id, document_type, document_name);
+    this.pageNum = parseInt(page);
+    setTimeout(() => {
+      this.showLoading = false;
+      this.renderPage(this.pageNum);
+    },500)
   }
 }
 

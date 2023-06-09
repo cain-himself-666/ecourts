@@ -47,4 +47,7 @@ export class HttpService {
   delete_bookmark(id:string){
     return this.http.delete(`${URL}/api/bookmark?id=${id}`);
   }
+  get_entered_cases(){
+    return this.http.get<any>(`${URL}/api/case-entry`);
+  }
 }
