@@ -13,6 +13,7 @@ var pdfDoc:any = null,
   styleUrls: ['./casedetails.component.css']
 })
 export class CasedetailsComponent {
+  menu_name: string = '';
   showLoading: boolean = false;
   date:any;
   orders: any = [];
@@ -32,6 +33,7 @@ export class CasedetailsComponent {
   pages: any = [];
   url: string = '';
   showPanel: boolean = false;
+  toggleSubMenu: boolean = false;
   constructor(private http: HttpService, private route: ActivatedRoute, private _location: Location){}
   ngOnInit():void{
     this.cnr = this.route.snapshot.paramMap.get('cnr');
@@ -205,5 +207,11 @@ export class CasedetailsComponent {
       this.renderPage(this.pageNum);
     },500)
   }
+  onToggleSubMenu(name: string){
+    if(this.menu_name !== name){
+      this.menu_name = name;
+      this.toggleSubMenu = false;
+    }
+    this.toggleSubMenu = !this.toggleSubMenu;
+  }
 }
-

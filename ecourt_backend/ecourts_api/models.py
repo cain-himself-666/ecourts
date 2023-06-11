@@ -42,3 +42,8 @@ class Bookmarks(models.Model):
 
 class DocumentMaster(models.Model):
     document_type = models.CharField(max_length=512, default=None)
+
+class DocumentIndexes(models.Model):
+    doc_id = models.ForeignKey(Documents, on_delete=models.CASCADE)
+    name = models.CharField(max_length=256, default=None, null=False)
+    page = models.BigIntegerField(default=None, null=False)

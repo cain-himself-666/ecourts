@@ -64,6 +64,7 @@ export class UploadDocsComponent {
   onGetDocs(){
     this.http.get_docs(this.case_id.toString()).subscribe({
       next: data => {
+        console.log(data);
         this.showDocs = data.docs[0] ? (this.showDocs = true, this.docs = data.docs) : false;
       },
       error: err => {
@@ -79,14 +80,24 @@ export class UploadDocsComponent {
     })
   }
   addIndexes(index_name: string, index_page: number){
-    this.indexes.push({
-      case_id: this.case_id,
-      document_id: this.doc_id,
-      name: index_name,
-      page: index_page,
+    let fd = new FormData();
+    fd.append('doc_id', this.doc_id.toString());
+    fd.append('name', index_name);
+    fd.append('page', index_page.toString());
+    this.http.add_indexes(fd).subscribe({
+      next: data => {
+        this.getDocId(this.doc_id);
+      }
     })
   }
   getDocId(id:number){
+    console.log(id);
     this.doc_id = id;
+    this.http.get_indexes(id).subscribe({
+      next: data => {
+        console.log(data);
+        this.indexes = data;
+      }
+    })
   }
 }

@@ -3,7 +3,7 @@
     min-height: 2500px;
     height:100%;
     width: 450px;
-    border: 2px solid black;
+    border: 2px solid white;
 }
 .sidebar ul li label,
 .sidebar ul li span{
@@ -35,4 +35,22 @@
 }
 li h5{
     cursor: pointer;
+}
+label{
+    user-select: none;
+}
+ol{
+    max-height: 0;
+    opacity: 1;
+    width: 96%;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+ol.active{
+    max-height: 100vh;
+    transition: all 1s ease;
+}
+ol li{
+    position: relative;
+    transition: all 0.3s ease;
 }

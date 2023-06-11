@@ -13,6 +13,7 @@ def getDocuments(request):
         documents = models.Documents.objects.filter(case_id_id = request.GET['case_id'])
         for d in documents:
             data = {
+                "id": d.id,
                 "case_id": d.case_id_id,
                 "doc_name": d.document,
                 "display_name": d.display_name,

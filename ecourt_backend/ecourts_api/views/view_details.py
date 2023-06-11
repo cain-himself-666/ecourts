@@ -21,12 +21,14 @@ def getCaseDetails(request):
         }
         documents = models.Documents.objects.filter(case_id_id = details.id)
         for d in documents:
+            indexes = models.DocumentIndexes.objects.filter(doc_id_id=d.id).values()
             data = {
                 "case_id": details.id,
                 "doc_id": d.id,
                 "doc_name": d.document,
                 "display_name": d.display_name,
                 "document_type": d.document_type,
+                "document_indexes": list(indexes)
             }
             docs.append(data)
         bookmarks = models.Bookmarks.objects.filter(case_id_id = details.id).select_related('case_id').select_related('document_id')

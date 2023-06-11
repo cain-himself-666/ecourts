@@ -2,57 +2,19 @@
     <div class="sidebar">
         <div *ngIf="docs.length > 0">
             <ul>
-                <li class="mt-3" *ngFor="let d of docs" style="list-style: none;">
+                <li class="mt-3" *ngFor="let d of docs">
                     <!-- <label (click)="onUpdateUrl(d.doc_id,d.document_type,d.doc_name)"> -->
-                    <label>
-                        <ng-container *ngIf="d.display_name === 'PETITION'; else others">
-                            {{d.display_name}}
-                            <ol>
-                                <li (click)="selectPage(5)">
-                                    Synopsis
-                                </li>
-                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,7)">
-                                    List of dates and events
-                                </li>
-                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,12)">
-                                    An application under Article 226
-                                </li>
-                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,43)">
-                                    P1 - Copy of Allotment Letter
-                                </li>
-                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,51)">
-                                    P2 - Copy of Contract Letter
-                                </li>
-                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,52)">
-                                    P3 - Copy of ledger of the company
-                                </li>
-                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,54)">
-                                    P4 - Copy of the Order dated 8.04.2022
-                                </li>
-                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,56)">
-                                    P5 - Copy of the Notice dated 7.11.2002
-                                </li>
-                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,58)">
-                                    P6 - Copy of the Reply mail dated 8.11.2002
-                                </li>
-                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,60)">
-                                    P7 - Copy of the legal notice sent through email and post dated to Respondent No. 2
-                                </li>
-                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,67)">
-                                    P8 - Copy of the legal notice sent through email and post dated to Respondent No. 4
-                                </li>
-                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,72)">
-                                    P9 - Copy of the letter sent to the Officer in Charge
-                                </li>
-                                <li class="mt-1" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,76)">
-                                    P10 - Copy of the notice sent to the Director General of Police
-                                </li>
-                            </ol>
-                        </ng-container>
-                        <ng-template  #others>
-                            <label (click)="onUpdateUrl(d.doc_id,d.document_type,d.doc_name)">{{d.display_name}}</label>
-                        </ng-template>
-                    </label>
+                    <ng-container *ngIf="d.document_indexes[0]; else others">
+                        <label (click)="onToggleSubMenu(d.display_name)">{{d.display_name}}</label>
+                        <ol [ngClass]="{'active': toggleSubMenu && menu_name === d.display_name, '': !toggleSubMenu && menu_name !== d.display_name}">
+                            <li style="cursor: pointer" class="mt-1" *ngFor="let ind of d.document_indexes; let i=index" (click)="selectPageBuffer(d.doc_id,d.document_type,d.doc_name,ind.page)">
+                                {{ ind.name }}
+                            </li>
+                        </ol>
+                    </ng-container>
+                    <ng-template  #others>
+                        <label (click)="onUpdateUrl(d.doc_id,d.document_type,d.doc_name)">{{d.display_name}}</label>
+                    </ng-template>
                 </li>
             </ul>
             <hr>
@@ -90,7 +52,7 @@
         <main>
             <div class="d-flex justify-content-between align-items-center mt-4 px-4">
                 <span></span>
-                <label class="form-label heading" *ngIf="details"><b>{{details.case_no}}</b> ({{details.first_petitioner}} v/s {{details.first_respondent}})</label>
+                <label class="form-label heading" *ngIf="details"><b>{{details.case_no.toUpperCase()}}</b> ({{details.first_petitioner.toUpperCase()}} v/s {{details.first_respondent.toUpperCase()}})</label>
                 <button class="btn btn-danger" (click)="goBack()">X</button>
             </div>
         </main>

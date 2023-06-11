@@ -5,3 +5,4 @@ from .view_docs import *
 from .notes import *
 from .bookmarks import *
 from .document_type import *
+from .indexing import *

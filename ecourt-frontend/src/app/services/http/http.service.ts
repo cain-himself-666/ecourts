@@ -50,4 +50,10 @@ export class HttpService {
   get_entered_cases(){
     return this.http.get<any>(`${URL}/api/case-entry`);
   }
+  add_indexes(fd: FormData){
+    return this.http.post(`${URL}/api/doc-indexes`, fd);
+  }
+  get_indexes(id:number){
+    return this.http.get<any>(`${URL}/api/doc-indexes`, { params: { doc_id: id}});
+  }
 }
